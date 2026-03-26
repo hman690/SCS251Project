@@ -109,7 +109,7 @@ public class Policy{
       double height = getPHolderHeight();
       double weight = getPHolderWeight();
    
-      BMI = (height * 703)/(height*height);
+      BMI = (weight * 703)/(height*height);
       return BMI;
    }
    
