@@ -2,12 +2,20 @@
 // by Hayden Myers
 // Date 3/26/2026
 
+// CSC-251 Project 2, updated to align with new project details
+// by Hayden Myers
+// Date 4/11/2026
+
 import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
 
 public class Project_Hayden_Myers{
    
-   public static void main(String[] args){
+   public static void main(String[] args) throws IOException{
       Scanner keyboard = new Scanner(System.in);
+      
+      /** old code for project 1 which is no longer relevant 
       int num;
       String proName;
       String fName;
@@ -17,18 +25,32 @@ public class Project_Hayden_Myers{
       double height;
       double weight;
       
-      num = getPolicyNumber();
-      proName = getProviderName();
-      fName = getPHolderFName();
-      lName = getPHolderLName();
-      age = getPHolderAge();
-      smokeStatus = getPHolderSmokeStatus();
-      height = getPHolderHeight();
-      weight = getPHolderWeight();
+      //num = getPolicyNumber();
+      //proName = getProviderName();
+      //fName = getPHolderFName();
+      //lName = getPHolderLName();
+      //age = getPHolderAge();
+      //smokeStatus = getPHolderSmokeStatus();
+      //height = getPHolderHeight();
+      //weight = getPHolderWeight();
       
-      Policy policyClass = new Policy(num, proName, fName, lName, age, smokeStatus, height, weight);
+      //Policy policyClass = new Policy(num, proName, fName, lName, age, smokeStatus, height, weight);
       
-      displayInformation(policyClass);
+      //displayInformation(policyClass);
+      */ //end of old code for project 1 which is no longer relevant
+      
+      ArrayList<Policy> policyList = new ArrayList<Policy>();
+      policyList = usefile();
+      int listSize = policyList.size();
+      int temp = 0;
+      
+      while (temp < listSize){
+         displayInformation(policyList.get(temp));
+         System.out.println();
+         temp++;
+      }
+      System.out.println("The number of policies with a smoker is: " + findNumSmokers(policyList));
+      System.out.println("The number of policies with a non-smoker is: " + findNumNonSmokers(policyList));
    }
    
    private static int getPolicyNumber(){
@@ -123,4 +145,49 @@ public class Project_Hayden_Myers{
       System.out.printf("Policyholder's BMI: %,.2f%n", pClass.getBMI());
       System.out.printf("Policy Price: $%,.2f%n", pClass.calcPrice());
    }
+   
+   private static ArrayList<Policy> usefile() throws IOException{
+      String fileName = "PolicyInformation.txt";
+      File file = new File(fileName);
+      Scanner inputFile = new Scanner(file);
+      
+      ArrayList<Policy> policyList = new ArrayList<Policy>();
+      
+      while(inputFile.hasNext())
+      {
+         Policy policies = new Policy();
+         policies.readFile(inputFile);
+         policyList.add(policies);
+      }
+      inputFile.close();
+      
+      return policyList;
+   }
+   
+   private static int findNumSmokers(ArrayList<Policy> policyList){
+      
+      int numSmokers = 0;
+      
+      for (Policy policies : policyList){
+         if(policies.getPHolderSmokeStatus().equals("smoker")){
+            numSmokers++;
+         }
+      }
+      
+      return numSmokers;
+   }
+   
+   private static int findNumNonSmokers(ArrayList<Policy> policyList){
+      
+      int numNonSmokers = 0;
+      
+      for (Policy policies : policyList){
+         if(policies.getPHolderSmokeStatus().equals("non-smoker")){
+            numNonSmokers++;
+         }
+      }
+      
+      return numNonSmokers;
+   }
+
 }
