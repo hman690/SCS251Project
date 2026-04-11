@@ -2,6 +2,14 @@
 // by Hayden Myers
 // Date 3/26/2026
 
+// CSC-251 Project 2, updated Class to be used in project 2
+// by Hayden Myers
+// Date 4/11/2026
+
+import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
+
 public class Policy{
    
    private int policyNum;
@@ -214,4 +222,26 @@ public class Policy{
       }
       return finalFee;
    }
+
+   /**
+      Reads a text file and adds its contents to the class's objects
+      @param a Scanner object reading a file
+   */
+
+   public void readFile(Scanner inputFile) throws IOException{
+      
+      policyNum = inputFile.nextInt();
+      inputFile.nextLine();
+      providerName = inputFile.nextLine();
+      pHolderFName = inputFile.nextLine();
+      pHolderLName = inputFile.nextLine();
+      pHolderAge = inputFile.nextInt();
+      inputFile.nextLine();
+      pHolderSmokeStatus = inputFile.nextLine();
+      pHolderHeight = inputFile.nextDouble();
+      pHolderWeight = inputFile.nextDouble();
+   
+   }
 } 
+
+
