@@ -15,6 +15,7 @@ public class PolicyHolder extends Policy{
   private double pHolderWeight; //in pounds
   
    public PolicyHolder(){
+      super();
       pHolderFName = "ERROR";
       pHolderLName = "ERROR";
       pHolderAge = -1;
@@ -23,7 +24,8 @@ public class PolicyHolder extends Policy{
       pHolderWeight = -1;
    }
    
-   public PolicyHolder(String fName, String lName, int age, String smokeStatus, double height, double weight){
+   public PolicyHolder(int num, String proName, String fName, String lName, int age, String smokeStatus, double height, double weight){
+      super(num, proName);
       pHolderFName = fName;
       pHolderLName = lName;
       pHolderAge = age;
@@ -185,7 +187,6 @@ public class PolicyHolder extends Policy{
       Reads a text file and adds its contents to the class's objects
       @param a Scanner object reading a file
    */
-
    public void readFile(Scanner inputFile) throws IOException{
       
       setPolicyNum(inputFile.nextInt());
@@ -199,5 +200,41 @@ public class PolicyHolder extends Policy{
       setPHolderHeight(inputFile.nextDouble());
       setPHolderWeight(inputFile.nextDouble());
    
+   }
+   
+   /**
+      overides toString method to instead give information about the class's fields, using an int to select wanted item
+      @param the field that is being selected
+      @return the selected field
+   */
+   public String toString(int item){
+      if (item == 0) {return getPolicyNum() + "";}
+      else if (item == 1) {return getProviderName();}
+      else if (item == 2) {return getPHolderFName();}
+      else if (item == 3) {return getPHolderLName();}
+      else if (item == 4) {return getPHolderAge() + "";}
+      else if (item == 5) {return getPHolderSmokeStatus();}
+      else if (item == 6) {return getPHolderHeight() + "";}
+      else if (item == 7) {return getPHolderWeight() + "";}
+      else if (item == 8) {return getBMI() + "";}
+      else if (item == 9) {return calcPrice() + "";}
+      else {return "ERROR";}
+   }
+   
+   
+   /**
+      displays the information about the policy holder through use of the overriden toString method
+   */
+   public void displayInformation(){
+      System.out.println("Policy Number: " + toString(0));
+      System.out.println("Provider Name: " + toString(1));
+      System.out.println("Policyholder's First Name: " + toString(2));
+      System.out.println("Policyholder's Last Name: " + toString(3));
+      System.out.println("Policyholder's Age: " + toString(4));
+      System.out.println("Policyholder's Smoking Status: " + toString(5));
+      System.out.println("Policyholder's Height: " + toString(6) + " inches");
+      System.out.println("Policyholder's Weight: " + toString(7) + " pounds");
+      System.out.printf("Policyholder's BMI: %,.2f%n", getBMI());
+      System.out.printf("Policy Price: $%,.2f%n", calcPrice());
    }
 }
