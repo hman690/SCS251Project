@@ -6,6 +6,14 @@
 // by Hayden Myers
 // Date 4/11/2026
 
+// CSC-251 Project 3, updated Class to be a SuperClass to be used in PolicyHolder SubClass
+// by Hayden Myers
+// Date 4/22/2026
+
+import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
+
 import java.util.Scanner;
 import java.io.*;
 import java.util.ArrayList;
@@ -14,33 +22,21 @@ public class Policy{
    
    private int policyNum;
    private String providerName;
-   private String pHolderFName;
-   private String pHolderLName;
-   private int pHolderAge;
-   private String pHolderSmokeStatus; //smoker or non-smoker
-   private double pHolderHeight; //in inches
-   private double pHolderWeight; //in pounds
+   
+   private static int numOfPolicies;
    
    public Policy(){ //initializes class with error placeholder values
       policyNum = -1;
       providerName = "ERROR";
-      pHolderFName = "ERROR";
-      pHolderLName = "ERROR";
-      pHolderAge = -1;
-      pHolderSmokeStatus = "ERROR";
-      pHolderHeight = -1;
-      pHolderWeight = -1;
+      
+      numOfPolicies++;
    }
    
-   public Policy(int num, String proName, String fName, String lName, int age, String smokeStatus, double height, double weight){ //initializes class with intentional values
+   public Policy(int num, String proName){ //initializes class with intentional values
       policyNum = num;
       providerName = proName;
-      pHolderFName = fName;
-      pHolderLName = lName;
-      pHolderAge = age;
-      pHolderSmokeStatus = smokeStatus;
-      pHolderHeight = height;
-      pHolderWeight = weight;
+      
+      numOfPolicies++;
    }
    
    //setters
@@ -61,54 +57,6 @@ public class Policy{
       providerName = pName;
    }
 
-    /**
-      sets the pHolderFName String from the class
-      @param the policy holder's first name pHolderFName as a String
-   */
-   public void setPHolderFName(String pHolFName){
-      pHolderFName = pHolFName;
-   }
-
-   /**
-      sets the pHolderLName String from the class
-      @param the policy holder's last name pHolderLName as a String
-   */
-   public void setPHolderLName(String pHolLName){
-      pHolderLName = pHolLName;
-   }
-
-   /**
-      sets the pHolderage int from the class
-      @param the policy holder's age pHolderage as a int
-   */
-   public void setPHolderAge(int age){
-      pHolderAge = age;
-   }
-
-   /**
-      sets the pHolderSmokeStatus String from the class
-      @param the policy holder's smoke status pHolderSmokeStatus as a String
-   */
-   public void setPHolderSmokeStatus(String smoker){
-      smoker = smoker.toLowerCase();
-      pHolderSmokeStatus = smoker;
-   }
-
-   /**
-      sets the pHolderHeight double from the class
-      @param the policy holder's height pHolderHeight as a double
-   */
-   public void setPHolderHeight(double height){
-      pHolderHeight = height;
-   }
-
-   /**
-      sets the pHolderWeight double from the class
-      @param the policy holder's weight pHolderWeight as a double
-   */
-   public void setPHolderWeight(double weight){
-      pHolderWeight = weight;
-   }
 
    //Getters
 
@@ -127,121 +75,39 @@ public class Policy{
    public String getProviderName(){
       return providerName;
    }
-
+   
    /**
-      accesses the pHolderFName String from the class
-      @return the policy holder's last name pHolderFName as a String 
+      accesses the numOfPolicies int from the class
+      @return th number of policies that have been made as an int
    */
-   public String getPHolderFName(){
-      return pHolderFName;
-   }
-
-   /**
-      accesses the pHolderLName String from the class
-      @return the policy holder's last name pHolderLName as a String 
-   */
-   public String getPHolderLName(){
-      return pHolderLName;
-   }
-
-   /**
-      accesses the pHolderAge int from the class
-      @return the policy holder's age pHolderage as a int 
-   */
-   public int getPHolderAge(){
-      return pHolderAge;
-   }
-
-   /**
-      accesses the pHolderSmokeStatus String from the class
-      @return the policy holder's smoke status pHolderSmokeStatus as a String 
-   */
-   public String getPHolderSmokeStatus(){
-      return pHolderSmokeStatus;
-   }
-
-   /**
-      accesses the pHolderWeight double from the class
-      @return the policy holder's weight pHolderHeight as a double 
-   */
-   public double getPHolderHeight(){
-      return pHolderHeight;
-   }
-
-   /**
-      accesses the pHolderWeight double from the class
-      @return the policy holder's weight pHolderWeight as a double 
-   */
-   public double getPHolderWeight(){
-      return pHolderWeight;
+   public int getNumOfPolicies(){
+      return numOfPolicies;
    }
    
-   //calculations
-
-   /**
-      the getBMI method calculates the BMI of the user, obtains height and weight from getPHolderHeight and getPHolderWeight
-      @return the calculated BMI (weight*703)/(height*height) as a double
-   */
-   public double getBMI(){
-      double BMI;
-      double height = getPHolderHeight();
-      double weight = getPHolderWeight();
+   //other methods
    
-      BMI = (weight * 703)/(height*height);
-      return BMI;
-   }
-
    /**
-      the calcPrice method calculates the final price of the policy for the user by comparing age, smoke status, and BMI
-         in relation to a set of fees
-      @return the double finalFee
+      overides toString method to instead give information about the class's fields, using an int to select wanted item
+      @param the field that is being selected
+      @return the selected field
    */
-   public double calcPrice(){
-      double finalFee;
-      final double BASE_FEE = 600;
-      final int AGE_CUTOFF = 50;
-      final double AGE_FEE = 75;
-      final double SMOKER_FEE = 100;
-      double BMIFee;
-      double BMI = getBMI();
-      final double BMI_CUTOFF = 35;
-      int age = getPHolderAge();
-      String smokeStatus = getPHolderSmokeStatus();
-      final String SMOKER = "smoker";
-      
-      finalFee = BASE_FEE;
-      if (age > AGE_CUTOFF){
-         finalFee += AGE_FEE;
-      }
-      if (smokeStatus == SMOKER){
-         finalFee += SMOKER_FEE;
-      }
-      if (BMI > BMI_CUTOFF){
-         BMIFee = (BMI - BMI_CUTOFF)*20;
-         finalFee += BMIFee;
-      }
-      return finalFee;
+   public String toString(int item){
+      if (item == 0) {return getPolicyNum() + "";}
+      else if (item == 1) {return getProviderName();}
+      else {return "ERROR";}
    }
-
-   /**
-      Reads a text file and adds its contents to the class's objects
-      @param a Scanner object reading a file
-   */
-
-   public void readFile(Scanner inputFile) throws IOException{
-      
-      policyNum = inputFile.nextInt();
-      inputFile.nextLine();
-      providerName = inputFile.nextLine();
-      pHolderFName = inputFile.nextLine();
-      pHolderLName = inputFile.nextLine();
-      pHolderAge = inputFile.nextInt();
-      inputFile.nextLine();
-      pHolderSmokeStatus = inputFile.nextLine();
-      pHolderHeight = inputFile.nextDouble();
-      pHolderWeight = inputFile.nextDouble();
    
+   /**
+      displays the information about the policy through use of the overriden toString method
+   */
+   public void displayInformation(){
+      System.out.println("Policy Number: " + getPolicyNum());
+      System.out.println("Provider Name: " + getProviderName());
    }
 } 
 
+
+
+   
+} 
 
