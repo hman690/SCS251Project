@@ -14,19 +14,29 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.ArrayList;
 
+import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
+
 public class Policy{
    
    private int policyNum;
    private String providerName;
    
+   private static int numOfPolicies;
+   
    public Policy(){ //initializes class with error placeholder values
       policyNum = -1;
       providerName = "ERROR";
+      
+      numOfPolicies++;
    }
    
    public Policy(int num, String proName){ //initializes class with intentional values
       policyNum = num;
       providerName = proName;
+      
+      numOfPolicies++;
    }
    
    //setters
@@ -65,6 +75,38 @@ public class Policy{
    public String getProviderName(){
       return providerName;
    }
+   
+   /**
+      accesses the numOfPolicies int from the class
+      @return th number of policies that have been made as an int
+   */
+   public int getNumOfPolicies(){
+      return numOfPolicies;
+   }
+   
+   //other methods
+   
+   /**
+      overides toString method to instead give information about the class's fields, using an int to select wanted item
+      @param the field that is being selected
+      @return the selected field
+   */
+   public String toString(int item){
+      if (item == 0) {return getPolicyNum() + "";}
+      else if (item == 1) {return getProviderName();}
+      else {return "ERROR";}
+   }
+   
+   /**
+      displays the information about the policy through use of the overriden toString method
+   */
+   public void displayInformation(){
+      System.out.println("Policy Number: " + getPolicyNum());
+      System.out.println("Provider Name: " + getProviderName());
+   }
+} 
+
+
    
 } 
 
