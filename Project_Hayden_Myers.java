@@ -39,18 +39,20 @@ public class Project_Hayden_Myers{
       //displayInformation(policyClass);
       */ //end of old code for project 1 which is no longer relevant
       
-      ArrayList<Policy> policyList = new ArrayList<Policy>();
+      ArrayList<PolicyHolder> policyList = new ArrayList<PolicyHolder>();
       policyList = usefile();
       int listSize = policyList.size();
       int temp = 0;
       
       while (temp < listSize){
-         displayInformation(policyList.get(temp));
+         policyList.get(temp).displayInformation();
          System.out.println();
          temp++;
       }
+      System.out.println("There were " + policyList.get(0).getNumOfPolicies() + " Policy objects created.");
       System.out.println("The number of policies with a smoker is: " + findNumSmokers(policyList));
       System.out.println("The number of policies with a non-smoker is: " + findNumNonSmokers(policyList));
+      
    }
    
    private static int getPolicyNumber(){
@@ -133,7 +135,8 @@ public class Project_Hayden_Myers{
       return weight;
    }
    
-   private static void displayInformation(Policy pClass){
+   /*
+   private static void displayInformation(PolicyHolder pClass){
       System.out.println("Policy Number: " + pClass.getPolicyNum());
       System.out.println("Provider Name: " + pClass.getProviderName());
       System.out.println("Policyholder's First Name: " + pClass.getPHolderFName());
@@ -144,18 +147,18 @@ public class Project_Hayden_Myers{
       System.out.println("Policyholder's Weight: " + pClass.getPHolderWeight() + " pounds");
       System.out.printf("Policyholder's BMI: %,.2f%n", pClass.getBMI());
       System.out.printf("Policy Price: $%,.2f%n", pClass.calcPrice());
-   }
-   
-   private static ArrayList<Policy> usefile() throws IOException{
+   } old code no longer used
+   */
+   private static ArrayList<PolicyHolder> usefile() throws IOException{
       String fileName = "PolicyInformation.txt";
       File file = new File(fileName);
       Scanner inputFile = new Scanner(file);
       
-      ArrayList<Policy> policyList = new ArrayList<Policy>();
+      ArrayList<PolicyHolder> policyList = new ArrayList<PolicyHolder>();
       
       while(inputFile.hasNext())
       {
-         Policy policies = new Policy();
+         PolicyHolder policies = new PolicyHolder();
          policies.readFile(inputFile);
          policyList.add(policies);
       }
@@ -164,11 +167,11 @@ public class Project_Hayden_Myers{
       return policyList;
    }
    
-   private static int findNumSmokers(ArrayList<Policy> policyList){
+   private static int findNumSmokers(ArrayList<PolicyHolder> policyList){
       
       int numSmokers = 0;
       
-      for (Policy policies : policyList){
+      for (PolicyHolder policies : policyList){
          if(policies.getPHolderSmokeStatus().equals("smoker")){
             numSmokers++;
          }
@@ -177,11 +180,11 @@ public class Project_Hayden_Myers{
       return numSmokers;
    }
    
-   private static int findNumNonSmokers(ArrayList<Policy> policyList){
+   private static int findNumNonSmokers(ArrayList<PolicyHolder> policyList){
       
       int numNonSmokers = 0;
       
-      for (Policy policies : policyList){
+      for (PolicyHolder policies : policyList){
          if(policies.getPHolderSmokeStatus().equals("non-smoker")){
             numNonSmokers++;
          }
@@ -190,4 +193,5 @@ public class Project_Hayden_Myers{
       return numNonSmokers;
    }
 
+}
 }
